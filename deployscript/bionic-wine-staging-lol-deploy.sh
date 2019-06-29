@@ -55,6 +55,83 @@ cd -
 wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
 chmod +x appimagetool.AppImage
 
+cat > AppRun <<\EOF
+#!/bin/bash
+HERE="$(dirname "$(readlink -f "${0}")")"
+
+export LD_LIBRARY_PATH="$HERE/usr/lib":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$HERE/lib":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$HERE/lib/i386-linux-gnu":$LD_LIBRARY_PATH
+
+#Sound Library
+export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/pulseaudio":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/alsa-lib":$LD_LIBRARY_PATH
+
+#Font Config
+export FONTCONFIG_PATH="$HERE/etc/fonts"
+
+#LD
+export WINELDLIBRARY="$HERE/lib/ld-linux.so.2"
+
+# Workaround for: wine: loadlocale.c:129: _nl_intern_locale_data:
+# Assertion `cnt < (sizeof (_nl_value_type_LC_TIME) / sizeof (_nl_value_type_LC_TIME[0]))' failed.
+export LC_ALL=C LANGUAGE=C LANG=C
+
+#Wineprefix
+export WINEPREFIX=$HOME/.wine-appimage-lol
+export WINEDEBUG=fixme-all
+export WINEDLLOVERRIDES="mscoree,mshtml="
+
+# Checking for d3d* native dlloverride
+chkd3d=$(grep -e 'd3d9"=' -e 'd3d11"=' ${WINEPREFIX}/user.reg 2>/dev/null | head -n1 | wc -l)
+
+if [ $chkd3d -eq 1 ]; then
+# Checking for d*vk hud env being used already if not then add it
+chkdvkh=$(env | grep DXVK_HUD | wc -l)
+    if [ $chkdvkh -eq 0 ]; then
+        export DXVK_HUD=1
+    fi
+fi
+
+# Checking for esync env being used already if not then add it
+chkesyn=$(env | grep WINEESYNC | wc -l)
+if [ $chkesyn -eq 0 ]; then
+export WINEESYNC=1
+fi
+
+# Load winecfg if no arguments given
+APPLICATION=""
+if [ -z "$*" ] ; then
+  APPLICATION="winecfg"
+fi
+
+# Allow the AppImage to be symlinked to e.g., /usr/bin/wineserver
+if [ ! -z $APPIMAGE ] ; then
+  BINARY_NAME=$(basename "$ARGV0")
+else
+  BINARY_NAME=$(basename "$0")
+fi
+
+if [ ! -z "$1" ] && [ -e "$HERE/bin/$1" ] ; then
+  MAIN="$HERE/bin/$1" ; shift
+elif [ ! -z "$1" ] && [ -e "$HERE/usr/bin/$1" ] ; then
+  MAIN="$HERE/usr/bin/$1" ; shift
+elif [ -e "$HERE/bin/$BINARY_NAME" ] ; then
+  MAIN="$HERE/bin/$BINARY_NAME"
+elif [ -e "$HERE/usr/bin/$BINARY_NAME" ] ; then
+  MAIN="$HERE/usr/bin/$BINARY_NAME"
+else
+  MAIN="$HERE/bin/wine"
+fi
+
+if [ -z "$APPLICATION" ] ; then
+  LD_PRELOAD="$HERE/bin/libhookexecv.so" "$WINELDLIBRARY" "$MAIN" "$@" | cat
+else
+  LD_PRELOAD="$HERE/bin/libhookexecv.so" "$WINELDLIBRARY" "$MAIN" "$APPLICATION" | cat
+fi
+EOF
+
 chmod +x AppRun
 
 cp src/{libhookexecv.so,wine-preloader_hook} $wineworkdir/bin
