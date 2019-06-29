@@ -24,7 +24,7 @@ gcc -std=c99 -m32 -static src/preloaderhook.c -o src/wine-preloader_hook
 strip src/libhookexecv.so src/wine-preloader_hook
 chmod +x src/wine-preloader_hook
 
-wineworkdir=(wineversion/*)
+wineworkdir=(wineversion)
 cd $wineworkdir
 
 pkgcachedir='/tmp/.winedeploycache'
