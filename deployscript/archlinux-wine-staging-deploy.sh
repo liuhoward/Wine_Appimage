@@ -9,6 +9,7 @@ pacman -S --noconfirm wget file pacman-contrib tar grep gcc lib32-gcc-libs
 wget -nv -c https://de.mirror.archlinux32.org/i686/community-testing/wine-staging-4.11-1.0-i686.pkg.tar.xz
 mkdir wineversion
 tar xf wine-staging* -C wineversion/
+ls -al wineversion/
 mv wineversion/usr/* wineversion
 rm -rf wineversion/lib32
 

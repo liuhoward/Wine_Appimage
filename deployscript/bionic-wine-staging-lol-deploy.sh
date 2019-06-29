@@ -9,6 +9,8 @@ wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bc
 wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/wine-staging-i386_4.10~bionic_i386.deb -O wine-staging-i386_4.10-lol~bionic_i386.deb
 wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/libc6_2.27-3ubuntu1_i386.deb
 
+ls -al
+
 dpkg -x wine-staging_4.10-lol~bionic_i386.deb wineversion/
 dpkg -x wine-staging-i386_4.10-lol~bionic_i386.deb wineversion/
 
