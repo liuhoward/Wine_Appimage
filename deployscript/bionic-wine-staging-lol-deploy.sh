@@ -4,9 +4,13 @@ dpkg --add-architecture i386
 apt update
 apt install -y aptitude wget file bzip2 gcc-multilib
 
-# Get Wine
-wget -nv -c https://dl.winehq.org/wine-builds/ubuntu/dists/bionic/main/binary-i386/wine-staging_4.10~bionic_i386.deb
-wget -nv -c https://dl.winehq.org/wine-builds/ubuntu/dists/bionic/main/binary-i386/wine-staging-i386_4.10~bionic_i386.deb
+# Remove non patched wine debs
+rm *.deb
+
+# Get Wine & glibc lol patched
+wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/wine-staging_4.10~bionic_i386.deb
+wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/wine-staging-i386_4.10~bionic_i386.deb
+wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/libc6_2.27-3ubuntu1_i386.deb
 
 dpkg -x wine-staging_4.10~bionic_i386.deb wineversion/
 dpkg -x wine-staging-i386_4.10~bionic_i386.deb wineversion/
@@ -14,6 +18,8 @@ dpkg -x wine-staging-i386_4.10~bionic_i386.deb wineversion/
 cp -r "wineversion/opt/"* "wineversion"
 rm -r "wineversion/opt"
 rm -rf "wineversion/usr"
+
+dpkg -x libc6_2.27-3ubuntu1_i386.deb wineversion/
 
 # compile & strip libhookexecv wine-preloader_hook
 gcc -shared -fPIC -m32 -ldl src/libhookexecv.c -o src/libhookexecv.so
@@ -27,9 +33,9 @@ cd $wineworkdir
 pkgcachedir='/tmp/.winedeploycache'
 mkdir -p $pkgcachedir
 
-aptitude -y -d -o dir::cache::archives="$pkgcachedir" install libwine:i386 libva2:i386 libva-drm2:i386 libva-x11-2:i386 libvulkan1:i386 libavcodec57:i386
+aptitude -y -d -o dir::cache::archives="$pkgcachedir" install mesa-vulkan-drivers:i386 libwine:i386 libva2:i386 libva-drm2:i386 libva-x11-2:i386 libvulkan1:i386 libavcodec57:i386
 
-find $pkgcachedir -name '*deb' ! -name 'libwine*' -exec dpkg -x {} . \;
+find $pkgcachedir -name '*deb' ! -name 'libwine*' ! -name 'libc6*' -exec dpkg -x {} . \;
 
 rm -rf $pkgcachedir ; rm -rf lib/x86_64-linux-gnu ; rm -rf usr/lib/x86_64-linux-gnu ; rm -rf share/man ; rm -rf usr/share/doc ; rm -rf usr/share/lintian ; rm -rf var ; rm -rf sbin ; rm -rf usr/share/man ; rm -rf usr/share/mime ; rm -rf usr/share/pkgconfig ; rm -rf usr/share/wine
 
@@ -59,4 +65,4 @@ cp resource/* $wineworkdir
 
 ./appimagetool.AppImage --appimage-extract
 
-export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir -u 'gh-releases-zsync|mmtrt|Wine_Appimage|continuous|wine-staging-i386_x86_64-bionic.AppImage.zsync' wine-staging-i386_${ARCH}-bionic.AppImage
+export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir -u 'gh-releases-zsync|mmtrt|Wine_Appimage|continuous|wine-staging*lol*bionic.AppImage.zsync' wine-staging-i386_lol-patched_${ARCH}-bionic.AppImage
