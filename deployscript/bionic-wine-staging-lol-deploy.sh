@@ -20,6 +20,8 @@ rm -rf "wineversion/usr"
 
 dpkg -x libc6_2.27-3ubuntu1_i386.deb wineversion/
 
+ls -al wineversion/
+
 # compile & strip libhookexecv wine-preloader_hook
 gcc -shared -fPIC -m32 -ldl src/libhookexecv.c -o src/libhookexecv.so
 gcc -std=c99 -m32 -static src/preloaderhook.c -o src/wine-preloader_hook
