@@ -31,7 +31,7 @@ before_install:
 
   # archlinux
   - wget -nv -c https://www.playonlinux.com/wine/binaries/phoenicis/upstream-linux-x86/PlayOnLinux-wine-4.10-upstream-linux-x86.tar.gz
-  - wget -nv -c https://de.mirror.archlinux32.org/i686/community-testing/wine-staging-4.11-1.0-i686.pkg.tar.xz
+  - wget -nv -c https://de.mirror.archlinux32.org/i686/community/wine-staging-4.11-1.0-i686.pkg.tar.xz
 
   # lol patched
   - wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/wine-staging_4.10~bionic_i386.deb -O wine-staging_4.10-lol~bionic_i386.deb
