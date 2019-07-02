@@ -56,20 +56,20 @@ HERE="$(dirname "$(readlink -f "${0}")")"
 export LD_LIBRARY_PATH="$HERE/usr/lib32":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/lib":$LD_LIBRARY_PATH
 
-#Sound Library
+# Sound Library
 export LD_LIBRARY_PATH="$HERE/usr/lib32/pulseaudio":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/usr/lib32/alsa-lib":$LD_LIBRARY_PATH
 
-#Font Config
+# Font Config
 export FONTCONFIG_PATH="$HERE/etc/fonts"
 
-#libGL drivers
+# libGL drivers
 export LIBGL_DRIVERS_PATH="$HERE/usr/lib32/dri":$LIBGL_DRIVERS_PATH
 
-#LD
+# LD
 export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 
-#Wine env
+# Wine env
 export WINEDEBUG=fixme-all
 
 #Load vulkan icd files as per vendor

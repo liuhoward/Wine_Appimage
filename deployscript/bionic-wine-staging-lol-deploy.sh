@@ -61,21 +61,21 @@ export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/lib":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/lib/i386-linux-gnu":$LD_LIBRARY_PATH
 
-#Sound Library
+# Sound Library
 export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/pulseaudio":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/alsa-lib":$LD_LIBRARY_PATH
 
-#Font Config
+# Font Config
 export FONTCONFIG_PATH="$HERE/etc/fonts"
 
-#LD
+# LD
 export WINELDLIBRARY="$HERE/lib/ld-linux.so.2"
 
 # Workaround for: wine: loadlocale.c:129: _nl_intern_locale_data:
 # Assertion `cnt < (sizeof (_nl_value_type_LC_TIME) / sizeof (_nl_value_type_LC_TIME[0]))' failed.
 export LC_ALL=C LANGUAGE=C LANG=C
 
-#Wineprefix
+# Wine env
 export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
