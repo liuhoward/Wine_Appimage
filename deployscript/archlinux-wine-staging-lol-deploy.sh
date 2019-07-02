@@ -78,8 +78,14 @@ export LIBGL_DRIVERS_PATH="$HERE/usr/lib32/dri":$LIBGL_DRIVERS_PATH
 #LD
 export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 
+# Workaround for: wine: loadlocale.c:129: _nl_intern_locale_data:
+# Assertion `cnt < (sizeof (_nl_value_type_LC_TIME) / sizeof (_nl_value_type_LC_TIME[0]))' failed.
+export LC_ALL=C LANGUAGE=C LANG=C
+
 #Wine env
+export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
+export WINEDLLOVERRIDES="mscoree,mshtml="
 
 #Load vulkan icd files as per vendor
 checkdri=$(cat /var/log/Xorg.0.log | grep -e "DRI driver:" | awk '{print $8}')
@@ -91,7 +97,7 @@ elif [ "$checkdri" = "radeonsi" ]; then
 fi
 
 # Checking for d3d* native dlloverride
-chkd3d=$(grep -e 'd3d9"=' -e 'd3d11"=' ${HOME}/.wine/user.reg 2>/dev/null | head -n1 | wc -l)
+chkd3d=$(grep -e 'd3d9"=' -e 'd3d11"=' ${WINEPREFIX}/user.reg 2>/dev/null | head -n1 | wc -l)
 
 if [ $chkd3d -eq 1 ]; then
 # Checking for d*vk hud env being used already if not then add it
@@ -99,6 +105,12 @@ chkdvkh=$(env | grep DXVK_HUD | wc -l)
     if [ $chkdvkh -eq 0 ]; then
         export DXVK_HUD=1
     fi
+fi
+
+# Checking for esync env being used already if not then add it
+chkesyn=$(env | grep WINEESYNC | wc -l)
+if [ $chkesyn -eq 0 ]; then
+export WINEESYNC=1
 fi
 
 # Load winecfg if no arguments given
