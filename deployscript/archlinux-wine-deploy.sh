@@ -72,7 +72,11 @@ export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 # Wine env
 export WINEDEBUG=fixme-all
 
-#Load vulkan icd files as per vendor
+#
+# FIXME: find better workaround for this.
+#
+# Load vulkan icd files as per vendor
+#
 checkdri=$(cat /var/log/Xorg.0.log | grep -e "DRI driver:" | awk '{print $8}')
 
 if [ "$checkdri" = "i965" ]; then

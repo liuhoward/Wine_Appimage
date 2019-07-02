@@ -87,7 +87,11 @@ export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
 
-#Load vulkan icd files as per vendor
+#
+# FIXME: find better workaround for this.
+#
+# Load vulkan icd files as per vendor
+#
 checkdri=$(cat /var/log/Xorg.0.log | grep -e "DRI driver:" | awk '{print $8}')
 
 if [ "$checkdri" = "i965" ]; then
