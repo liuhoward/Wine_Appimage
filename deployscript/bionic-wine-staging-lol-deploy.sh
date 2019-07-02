@@ -65,6 +65,9 @@ export LD_LIBRARY_PATH="$HERE/lib/i386-linux-gnu":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/pulseaudio":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/alsa-lib":$LD_LIBRARY_PATH
 
+# libGL drivers
+export LIBGL_DRIVERS_PATH="$HERE/usr/lib/i386-linux-gnu/dri":$LIBGL_DRIVERS_PATH
+
 # Font Config
 export FONTCONFIG_PATH="$HERE/etc/fonts"
 
@@ -79,6 +82,19 @@ export LC_ALL=C LANGUAGE=C LANG=C
 export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
+
+#
+# FIXME: find better workaround for this.
+#
+# Load vulkan icd files as per vendor
+#
+checkdri=$(cat /var/log/Xorg.0.log | grep -e "DRI driver:" | awk '{print $8}')
+
+if [ "$checkdri" = "i965" ]; then
+    export VK_ICD_FILENAMES="$HERE/usr/share/vulkan/icd.d/intel_icd.i686.json":$VK_ICD_FILENAMES
+elif [ "$checkdri" = "radeonsi" ]; then
+    export VK_ICD_FILENAMES="$HERE/usr/share/vulkan/icd.d/radeon_icd.i686.json":$VK_ICD_FILENAMES
+fi
 
 # Checking for d3d* native dlloverride
 chkd3d=$(grep -e 'd3d9"=' -e 'd3d11"=' ${WINEPREFIX}/user.reg 2>/dev/null | head -n1 | wc -l)
