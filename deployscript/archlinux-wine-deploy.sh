@@ -136,7 +136,9 @@ else
   MAIN="$HERE/bin/wine"
 fi
 
-if [ -z "$APPLICATION" ] ; then
+if [ "$MAIN" = "$HERE/bin/regedit" ] || [ "$MAIN" = "$HERE/bin/regsvr32" ] || [ "$MAIN" = "$HERE/bin/winetricks" ] || [ "$MAIN" = "$HERE/bin/winecfg" ] ; then
+  "$MAIN" "$@" | cat
+elif [ -z "$APPLICATION" ] ; then
   LD_PRELOAD="$HERE/bin/libhookexecv.so" "$WINELDLIBRARY" "$MAIN" "$@" | cat
 else
   LD_PRELOAD="$HERE/bin/libhookexecv.so" "$WINELDLIBRARY" "$MAIN" "$APPLICATION" | cat
