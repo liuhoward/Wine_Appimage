@@ -15,6 +15,10 @@ cp -r "wineversion/opt/"* "wineversion"
 rm -r "wineversion/opt"
 rm -rf "wineversion/usr"
 
+# Get winetricks & cabextract
+wget "https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks" -P wineversion/bin/ && chmod +x wineversion/bin/winetricks
+wget "http://archlinux32.andreasbaumann.cc/i686/community/cabextract-1.9.1-1.0-i686.pkg.tar.xz" && tar --warning=no-unknown-keyword -xf cabextract*.tar.xz "usr/bin/cabextract" -C wineversion/bin && chmod +x wineversion/bin/cabextract
+
 # compile & strip libhookexecv wine-preloader_hook
 gcc -shared -fPIC -m32 -ldl src/libhookexecv.c -o src/libhookexecv.so
 gcc -std=c99 -m32 -static src/preloaderhook.c -o src/wine-preloader_hook

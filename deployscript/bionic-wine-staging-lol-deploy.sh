@@ -18,6 +18,10 @@ cp -r "wineversion/opt/wine-staging/"* "wineversion"
 rm -r "wineversion/opt"
 rm -rf "wineversion/usr"
 
+# Get winetricks & cabextract
+wget "https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks" -P wineversion/bin/ && chmod +x wineversion/bin/winetricks
+wget "http://archlinux32.andreasbaumann.cc/i686/community/cabextract-1.9.1-1.0-i686.pkg.tar.xz" && tar --warning=no-unknown-keyword -xf cabextract*.tar.xz "usr/bin/cabextract" -C wineversion/bin && chmod +x wineversion/bin/cabextract
+
 dpkg -x libc6_2.27-3ubuntu1_i386.deb wineversion/
 
 # compile & strip libhookexecv wine-preloader_hook

@@ -16,6 +16,10 @@ rm -rf wineversion/lib
 wget -nv -c "https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/47efa388cc1adb62f32986d5c0ed0e6719c6c112/lib32-glibc-2.29-3-x86_64.pkg.tar.xz"
 tar xf lib32-glib*.tar.xz -C wineversion/
 
+# Get winetricks & cabextract
+wget "https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks" -P wineversion/bin/ && chmod +x wineversion/bin/winetricks
+wget "http://archlinux32.andreasbaumann.cc/i686/community/cabextract-1.9.1-1.0-i686.pkg.tar.xz" && tar --warning=no-unknown-keyword -xf cabextract*.tar.xz "usr/bin/cabextract" -C wineversion/bin && chmod +x wineversion/bin/cabextract
+
 # compile & strip libhookexecv wine-preloader_hook
 gcc -shared -fPIC -m32 -ldl src/libhookexecv.c -o src/libhookexecv.so
 gcc -std=c99 -m32 -static src/preloaderhook.c -o src/wine-preloader_hook
