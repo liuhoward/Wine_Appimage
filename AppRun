@@ -10,14 +10,51 @@ export LD_LIBRARY_PATH="$HERE/lib/i386-linux-gnu":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/pulseaudio":$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$HERE/usr/lib/i386-linux-gnu/alsa-lib":$LD_LIBRARY_PATH
 
+# libGL drivers
+export LIBGL_DRIVERS_PATH="$HERE/usr/lib/i386-linux-gnu/dri":$LIBGL_DRIVERS_PATH
+
 #Font Config
 export FONTCONFIG_PATH="$HERE/etc/fonts"
 
 #LD
 export WINELDLIBRARY="$HERE/lib/ld-linux.so.2"
 
+# Workaround for: wine: loadlocale.c:129: _nl_intern_locale_data:
+# Assertion `cnt < (sizeof (_nl_value_type_LC_TIME) / sizeof (_nl_value_type_LC_TIME[0]))' failed.
+export LC_ALL=C LANGUAGE=C LANG=C
+
 #Wine env
 export WINEDEBUG=fixme-all
+
+#
+# FIXME: find better workaround for this.
+#
+# Load vulkan icd files as per vendor
+#
+checkdri=$(cat /var/log/Xorg.0.log | grep -e "DRI driver:" | awk '{print $8}')
+
+if [ "$checkdri" = "i965" ]; then
+    export VK_ICD_FILENAMES="$HERE/usr/share/vulkan/icd.d/intel_icd.i686.json":$VK_ICD_FILENAMES
+elif [ "$checkdri" = "radeonsi" ]; then
+    export VK_ICD_FILENAMES="$HERE/usr/share/vulkan/icd.d/radeon_icd.i686.json":$VK_ICD_FILENAMES
+fi
+
+# Checking for d3d* native dlloverride
+chkd3d=$(grep -e 'd3d9"=' -e 'd3d11"=' ${WINEPREFIX}/user.reg 2>/dev/null | head -n1 | wc -l)
+
+if [ $chkd3d -eq 1 ]; then
+# Checking for d*vk hud env being used already if not then add it
+chkdvkh=$(env | grep DXVK_HUD | wc -l)
+    if [ $chkdvkh -eq 0 ]; then
+        export DXVK_HUD=1
+    fi
+fi
+
+# Checking for esync env being used already if not then add it
+chkesyn=$(env | grep WINEESYNC | wc -l)
+if [ $chkesyn -eq 0 ]; then
+export WINEESYNC=1
+fi
 
 # Load winecfg if no arguments given
 APPLICATION=""
