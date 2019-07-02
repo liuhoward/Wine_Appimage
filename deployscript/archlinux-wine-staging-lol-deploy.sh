@@ -49,9 +49,6 @@ rm usr/lib32/libGLX_indirect.so.0
 ln -s libGLX_mesa.so.0 libGLX_indirect.so.0
 mv libGLX_indirect.so.0 usr/lib32
 
-# Disable winemenubuilder
-sed -i 's/winemenubuilder.exe -a -r/winemenubuilder.exe -r/g' share/wine/wine.inf
-
 # appimage
 cd -
 
