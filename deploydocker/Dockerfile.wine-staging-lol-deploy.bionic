@@ -3,4 +3,8 @@ FROM ubuntu
 COPY . /srv/wineappimage
 
 WORKDIR /srv/wineappimage
+
+RUN sudo add-apt-repository ppa:oibaf/graphics-drivers -y
+RUN sudo apt-get update
+
 RUN /srv/wineappimage/deployscript/bionic-wine-staging-lol-deploy.sh
