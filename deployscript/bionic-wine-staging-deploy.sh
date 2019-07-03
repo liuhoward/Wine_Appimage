@@ -2,7 +2,9 @@
 # Pre install
 dpkg --add-architecture i386
 apt update
-apt install -y aptitude wget file bzip2 gcc-multilib
+apt install -y aptitude wget file bzip2 gcc-multilib software-properties-common
+add-apt-repository -y ppa:oibaf/graphics-drivers
+apt update
 
 # Get Wine
 wget -nv -c https://dl.winehq.org/wine-builds/ubuntu/dists/bionic/main/binary-i386/wine-staging_4.11~bionic_i386.deb
