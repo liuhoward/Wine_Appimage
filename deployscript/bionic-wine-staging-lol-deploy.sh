@@ -2,7 +2,9 @@
 # Pre install
 dpkg --add-architecture i386
 apt update
-apt install -y aptitude wget file bzip2 gcc-multilib
+apt install -y aptitude wget file bzip2 gcc-multilib software-properties-common
+add-apt-repository -y ppa:oibaf/graphics-drivers
+apt update
 
 # Get Wine & glibc lol patched
 wget -nvc https://gist.github.com/mmtrt/578f4c0694fcfc968b2d9dcc90da4c0e/raw/9bcb0abfede983a7093973d33f206da9023a2980/wine-staging_4.10~bionic_i386.deb -O wine-staging_4.10-lol~bionic_i386.deb
