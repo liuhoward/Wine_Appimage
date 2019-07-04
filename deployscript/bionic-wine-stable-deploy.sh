@@ -2,7 +2,7 @@
 # Pre install
 dpkg --add-architecture i386
 apt update
-apt install -y aptitude wget file bzip2 gcc-multilib xz-utils
+apt install -y aptitude wget file bzip2 gcc-multilib
 
 # Get Wine
 wget -nv -c https://dl.winehq.org/wine-builds/ubuntu/dists/bionic/main/binary-i386/wine-stable_4.0.1~bionic_i386.deb
@@ -21,7 +21,7 @@ gcc -std=c99 -m32 -static src/preloaderhook.c -o src/wine-preloader_hook
 strip src/libhookexecv.so src/wine-preloader_hook
 chmod +x src/wine-preloader_hook
 
-wineworkdir=(wineversion)
+wineworkdir=(wineversion/*)
 cd $wineworkdir
 
 pkgcachedir='/tmp/.winedeploycache'
