@@ -83,8 +83,6 @@ export LC_ALL=C LANGUAGE=C LANG=C
 export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
-export WINEPATH="$HERE"
-export WINE="${WINEPATH}/bin/wine"
 
 # Disable file associations
 if [ ! -d $WINEPREFIX ]; then
