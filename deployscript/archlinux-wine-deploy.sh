@@ -72,6 +72,17 @@ export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 # Wine env
 export WINEDEBUG=fixme-all
 
+# Disable file associations
+if [ ! -d $HOME/.wine ]; then
+cat > /tmp/reg <<'EOF1'
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Wine\FileOpenAssociations]
+"Enable"="N"
+EOF1
+$HERE/bin/wine regedit /tmp/reg && rm /tmp/reg
+fi
+
 #
 # FIXME: find better workaround for this.
 #

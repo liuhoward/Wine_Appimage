@@ -84,6 +84,17 @@ export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
 
+# Disable file associations
+if [ ! -d $WINEPREFIX ]; then
+cat > /tmp/reg <<'EOF1'
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Wine\FileOpenAssociations]
+"Enable"="N"
+EOF1
+$HERE/bin/wine regedit /tmp/reg && rm /tmp/reg
+fi
+
 #
 # FIXME: find better workaround for this.
 #
