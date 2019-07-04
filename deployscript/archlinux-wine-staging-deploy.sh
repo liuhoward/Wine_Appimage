@@ -78,6 +78,8 @@ export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 
 # Wine env
 export WINEDEBUG=fixme-all
+export WINEPATH="$HERE"
+export WINE="${WINEPATH}/bin/wine"
 
 # Disable file associations
 if [ ! -d $HOME/.wine ]; then
