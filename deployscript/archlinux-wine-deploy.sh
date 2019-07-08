@@ -80,7 +80,7 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Wine\FileOpenAssociations]
 "Enable"="N"
 EOF1
-$HERE/bin/wine regedit /tmp/reg && rm /tmp/reg
+LD_PRELOAD="$HERE/bin/libhookexecv.so" "$WINELDLIBRARY" $HERE/bin/wine regedit /tmp/reg && sleep 2 && rm /tmp/reg
 fi
 
 #
