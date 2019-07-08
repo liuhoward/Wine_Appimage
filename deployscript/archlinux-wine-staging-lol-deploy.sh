@@ -49,6 +49,12 @@ rm usr/lib32/libGLX_indirect.so.0
 ln -s libGLX_mesa.so.0 libGLX_indirect.so.0
 mv libGLX_indirect.so.0 usr/lib32
 
+# Disable winemenubuilder
+sed -i 's/winemenubuilder.exe -a -r/winemenubuilder.exe -r/g' share/wine/wine.inf
+
+# Disable FileOpenAssociations
+sed -i 's|    LicenseInformation|    LicenseInformation,\\\n    FileOpenAssociations|g;$a \\n[FileOpenAssociations]\nHKCU,Software\\Wine\\FileOpenAssociations,"Enable",,"N"' share/wine/wine.inf
+
 # appimage
 cd -
 
@@ -83,17 +89,6 @@ export LC_ALL=C LANGUAGE=C LANG=C
 export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
-
-# Disable file associations
-if [ ! -d $WINEPREFIX ]; then
-cat > /tmp/reg <<'EOF1'
-Windows Registry Editor Version 5.00
-
-[HKEY_CURRENT_USER\Software\Wine\FileOpenAssociations]
-"Enable"="N"
-EOF1
-LD_PRELOAD="$HERE/bin/libhookexecv.so" "$WINELDLIBRARY" $HERE/bin/wine regedit /tmp/reg && sleep 2 && rm /tmp/reg
-fi
 
 #
 # FIXME: find better workaround for this.

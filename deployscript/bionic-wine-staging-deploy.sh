@@ -45,6 +45,9 @@ rm -f lib/i386-linux-gnu/ld-*.so
 # Disable winemenubuilder
 sed -i 's/winemenubuilder.exe -a -r/winemenubuilder.exe -r/g' share/wine/wine.inf
 
+# Disable FileOpenAssociations
+sed -i 's|    LicenseInformation|    LicenseInformation,\\\n    FileOpenAssociations|g;$a \\n[FileOpenAssociations]\nHKCU,Software\\Wine\\FileOpenAssociations,"Enable",,"N"' share/wine/wine.inf
+
 # appimage
 cd -
 
