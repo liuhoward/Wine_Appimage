@@ -73,6 +73,12 @@ export LIBGL_DRIVERS_PATH="$HERE/usr/lib32/dri":$LIBGL_DRIVERS_PATH
 export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 
 # Wine env
+export WINEVERPATH=${WINEVERPATH:-"$HERE"}
+export PATH=${WINEVERPATH}/bin:$PATH 
+export WINESERVER=${WINEVERPATH}/bin/wineserver
+export WINELOADER=${WINEVERPATH}/bin/wine
+export WINEDLLPATH=${WINEVERPATH}/lib/wine/fakedlls
+export WINEARCH=win32
 export WINEDEBUG=fixme-all
 
 #

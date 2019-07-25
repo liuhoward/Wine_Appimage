@@ -86,6 +86,12 @@ export WINELDLIBRARY="$HERE/usr/lib32/ld-linux.so.2"
 export LC_ALL=C LANGUAGE=C LANG=C
 
 # Wine env
+export WINEVERPATH=${WINEVERPATH:-"$HERE"}
+export PATH=${WINEVERPATH}/bin:$PATH 
+export WINESERVER=${WINEVERPATH}/bin/wineserver
+export WINELOADER=${WINEVERPATH}/bin/wine
+export WINEDLLPATH=${WINEVERPATH}/lib/wine/fakedlls
+export WINEARCH=win32
 export WINEPREFIX=$HOME/.wine-appimage-lol
 export WINEDEBUG=fixme-all
 export WINEDLLOVERRIDES="mscoree,mshtml="
