@@ -107,23 +107,6 @@ elif [ "$checkdri" = "radeonsi" ]; then
     export VK_ICD_FILENAMES=${VK_ICD_FILENAMES:-"$HERE/usr/share/vulkan/icd.d/radeon_icd.i686.json"}
 fi
 
-# Checking for d3d* native dlloverride
-chkd3d=$(grep -e 'd3d9"=' -e 'd3d11"=' ${WINEPREFIX}/user.reg 2>/dev/null | head -n1 | wc -l)
-
-if [ $chkd3d -eq 1 ]; then
-# Checking for d*vk hud env being used already if not then add it
-chkdvkh=$(env | grep DXVK_HUD | wc -l)
-    if [ $chkdvkh -eq 0 ]; then
-        export DXVK_HUD=1
-    fi
-fi
-
-# Checking for esync env being used already if not then add it
-chkesyn=$(env | grep WINEESYNC | wc -l)
-if [ $chkesyn -eq 0 ]; then
-export WINEESYNC=1
-fi
-
 # Load winecfg if no arguments given
 APPLICATION=""
 if [ -z "$*" ] ; then
