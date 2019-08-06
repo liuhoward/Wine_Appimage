@@ -90,8 +90,8 @@ export WINESERVER=${WINEVERPATH}/bin/wineserver
 export WINELOADER=${WINEVERPATH}/bin/wine
 export WINEDLLPATH=${WINEVERPATH}/lib/wine/fakedlls
 export WINEARCH=win32
-export WINEPREFIX=$HOME/.wine-appimage-lol
-export WINEDEBUG=fixme-all
+export WINEPREFIX=${WINEPREFIX:-"$HOME/.wine-appimage-lol"}
+export WINEDEBUG=${WINEDEBUG:-"-all"}
 export WINEDLLOVERRIDES="mscoree,mshtml="
 
 #
