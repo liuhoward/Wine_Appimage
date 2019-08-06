@@ -97,6 +97,10 @@ export WINEDEBUG=${WINEDEBUG:-"-all"}
 export WINEDLLOVERRIDES="mscoree,mshtml="
 export WINEESYNC=${WINEESYNC:-"1"}
 
+# DXVK env
+export DXVK_HUD=${DXVK_HUD:-"1"}
+export DXVK_LOG_LEVEL=${DXVK_LOG_LEVEL:-"none"}
+
 #
 # FIXME: find better workaround for this.
 #
