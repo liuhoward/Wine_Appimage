@@ -94,7 +94,7 @@ export WINEDLLPATH=${WINEVERPATH}/lib32/wine/fakedlls
 export WINEARCH=win32
 export WINEPREFIX=${WINEPREFIX:-"$HOME/.wine-appimage-lol"}
 export WINEDEBUG=${WINEDEBUG:-"-all"}
-export WINEDLLOVERRIDES="mscoree,mshtml="
+export WINEDLLOVERRIDES=${WINEDLLOVERRIDES:-"mscoree,mshtml="}
 export WINEESYNC=${WINEESYNC:-"1"}
 
 # DXVK env
