@@ -95,6 +95,7 @@ export WINEARCH=win32
 export WINEPREFIX=${WINEPREFIX:-"$HOME/.wine-appimage-lol"}
 export WINEDEBUG=${WINEDEBUG:-"-all"}
 export WINEDLLOVERRIDES="mscoree,mshtml="
+export WINEESYNC=${WINEESYNC:-"1"}
 
 #
 # FIXME: find better workaround for this.
