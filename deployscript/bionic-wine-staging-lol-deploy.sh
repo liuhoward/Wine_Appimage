@@ -102,9 +102,9 @@ export WINEDLLOVERRIDES="mscoree,mshtml="
 checkdri=$(cat /var/log/Xorg.0.log | grep -e "DRI driver:" | awk '{print $8}')
 
 if [ "$checkdri" = "i965" ]; then
-    export VK_ICD_FILENAMES="$HERE/usr/share/vulkan/icd.d/intel_icd.i686.json":$VK_ICD_FILENAMES
+    export VK_ICD_FILENAMES=${VK_ICD_FILENAMES:-"$HERE/usr/share/vulkan/icd.d/intel_icd.i686.json"}
 elif [ "$checkdri" = "radeonsi" ]; then
-    export VK_ICD_FILENAMES="$HERE/usr/share/vulkan/icd.d/radeon_icd.i686.json":$VK_ICD_FILENAMES
+    export VK_ICD_FILENAMES=${VK_ICD_FILENAMES:-"$HERE/usr/share/vulkan/icd.d/radeon_icd.i686.json"}
 fi
 
 # Checking for d3d* native dlloverride
