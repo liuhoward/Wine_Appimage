@@ -6,7 +6,7 @@ pacman -Syy
 pacman -S --noconfirm wget file pacman-contrib tar grep gcc lib32-gcc-libs
 
 # Get Wine
-wget -nv -c https://de.mirror.archlinux32.org/i686/community/wine-staging-4.11-1.0-i686.pkg.tar.xz
+wget -nv -c https://de.mirror.archlinux32.org/i686/community/wine-staging-4.14-1.0-i686.pkg.tar.xz
 mkdir wineversion
 tar xf wine-staging*i686.pkg.tar.xz -C wineversion/
 ls -al wineversion/
