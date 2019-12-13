@@ -202,4 +202,7 @@ export ARCH=x86_64; ./appimagetool-x86_64.AppImage squashfs-root
 ```
 运行：
 
-![](/images/7.png)
+![](/images/7.png)  
+
+
+Download app wine files from Deepin (http://packages.deepin.com/deepin/pool/non-free/d/)
