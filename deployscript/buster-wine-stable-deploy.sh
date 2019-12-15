@@ -27,7 +27,8 @@ cd $wineworkdir
 pkgcachedir='/tmp/.winedeploycache'
 mkdir -p $pkgcachedir
 
-aptitude -y -d -o dir::cache::archives="$pkgcachedir" install mesa-vulkan-drivers:i386 libwine:i386 libva2:i386 libva-drm2:i386 libva-x11-2:i386 libvulkan1:i386 libavcodec57:i386
+aptitude -y -d -o dir::cache::archives="$pkgcachedir" install libwine:i386
+aptitude -y -d -o dir::cache::archives="$pkgcachedir" install mesa-vulkan-drivers:i386 libva2:i386 libva-drm2:i386 libva-x11-2:i386 libvulkan1:i386 libavcodec58:i386
 
 find $pkgcachedir -name '*deb' ! -name 'libwine*' ! -name '*amd64*' -exec dpkg -x {} . \;
 
