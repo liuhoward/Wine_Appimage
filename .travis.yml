@@ -6,10 +6,6 @@ services:
 
 before_install:
 
-  # debian buster
-  - wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable_4.0.3~buster_i386.deb
-  - wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable-i386_4.0.3~buster_i386.deb
-
   # appimagetool
   - wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O appimagetool.AppImage
 
