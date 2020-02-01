@@ -14,12 +14,19 @@ script:
   # debian buster
   - docker build . -f deploydocker/Dockerfile.wine-stable-deploy.buster -t wine-stable-appimage.buster
 
+  # debian buster for deepin-wine
+  - docker build . -f deploydocker/Dockerfile.deepin-wine-stable-deploy.buster -t deepin-wine-stable-appimage.buster
+
 after_success:
   - mkdir apps
 
   # debian buster
   - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage /tmp/apps
   - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage.zsync /tmp/apps
+
+  # debian buster
+  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti deepin-wine-stable-appimage.buster cp deepin-wine-stable-i386_x86_64-buster.AppImage /tmp/apps
+  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti deepin-wine-stable-appimage.buster cp deepin-wine-stable-i386_x86_64-buster.AppImage.zsync /tmp/apps
 
   # uploadtool
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
