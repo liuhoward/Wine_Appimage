@@ -5,11 +5,12 @@ apt update
 apt install -y aptitude wget file bzip2 gcc-multilib
 
 # Get Wine
-wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable_4.0.3~buster_i386.deb
-wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable-i386_4.0.3~buster_i386.deb
+WINE_VERSION=4.0.4
+wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable_${WINE_VERSION}~buster_i386.deb
+wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable-i386_${WINE_VERSION}~buster_i386.deb
 
-dpkg -x wine-stable_4.0.3~buster_i386.deb wineversion/
-dpkg -x wine-stable-i386_4.0.3~buster_i386.deb wineversion/
+dpkg -x wine-stable_${WINE_VERSION}~buster_i386.deb wineversion/
+dpkg -x wine-stable-i386_${WINE_VERSION}~buster_i386.deb wineversion/
 
 cp -r "wineversion/opt/"* "wineversion"
 rm -r "wineversion/opt"
