@@ -5,7 +5,7 @@ apt update
 apt install -y aptitude wget file bzip2 gcc-multilib
 
 # Get Wine
-WINE_VERSION=5.0.2
+WINE_VERSION=4.0.4
 wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable_${WINE_VERSION}~buster_i386.deb
 wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/buster/main/binary-i386/wine-stable-i386_${WINE_VERSION}~buster_i386.deb
 
@@ -64,7 +64,4 @@ sed -i -E 's,(^.+"library_path": ")/.*/,\1,' $wineworkdir/usr/share/vulkan/icd.d
 
 ./appimagetool.AppImage --appimage-extract
 
-export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir -u 'gh-releases-zsync|Wine_Appimage|continuous' wine-stable-i386_${ARCH}-debian.AppImage
-
-
-
+export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir -u 'gh-releases-zsync|Wine_Appimage|continuous|wine-stable*buster.AppImage.zsync' wine-stable-i386_${ARCH}-buster.AppImage
