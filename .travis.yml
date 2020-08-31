@@ -15,12 +15,18 @@ script:
   # debian buster
   - docker build . -f deploydocker/Dockerfile.wine-stable-deploy.buster -t wine-stable-appimage.buster
 
+  # debian buster deepin
+  - docker build . -f deploydocker/Dockerfile.wine-stable-deploy.deepin -t wine-stable-appimage.deepin
+
 after_success:
   - mkdir apps
 
   # debian buster
   - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage /tmp/apps
 #  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage.zsync /tmp/apps
+
+  # debian buster deepin
+  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.deepin cp wine-stable-i386_x86_64-deepin.AppImage /tmp/apps
 
   # uploadtool
   - ls -lh apps/* # Assuming you have some files in out/ that you would like to upload
