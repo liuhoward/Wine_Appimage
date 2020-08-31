@@ -1,4 +1,5 @@
-sudo: required
+
+os: linux
 
 language: cpp
 services:
@@ -19,9 +20,10 @@ after_success:
 
   # debian buster
   - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage /tmp/apps
-  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage.zsync /tmp/apps
+#  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage.zsync /tmp/apps
 
   # uploadtool
+  - ls -lh apps/* # Assuming you have some files in out/ that you would like to upload
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
   - bash upload.sh apps/*
 
@@ -29,8 +31,7 @@ branches:
   except:
     - # Do not build tags that we create when we upload to GitHub Releases
     - /^(?i:continuous)$/
-    - /^release-[0-9a-z\-]*/
-    - /^(?i:untagged)-.*$/
+    - /^release[0-9a-z\-]*/
 
 notifications:
   email:
