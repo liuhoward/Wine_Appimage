@@ -66,4 +66,4 @@ sed -i -E 's,(^.+"library_path": ")/.*/,\1,' $wineworkdir/usr/share/vulkan/icd.d
 
 export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir wine-i386-debian.AppImage
 
-tar -czf wine-i386-debian.tar.gz $wineworkdir/wine-stable
+cd wineversion && tar -czf ../wine-i386-debian.tar.gz wine-stable && cd -
