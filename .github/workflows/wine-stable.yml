@@ -20,24 +20,11 @@ jobs:
       - run: docker run -v $(pwd)/apps:/tmp/apps wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps
       - run: ls -lh apps/*
 
-      - name: get upload url
-        id: get_upload_url
-        run: |
-          url=$(echo "$response" | jq -r '.upload_url')
-          echo "::set-output name=url::$url"
-        env: 
-          response:  ${{ steps.get_latest_release.outputs.data }}
-     
-      - name: Upload a Release Asset
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          # The URL for uploading assets to the release
-          upload_url:  ${{steps.get_upload_url.outputs.url}}
-          # The path to the asset you want to upload
-          asset_path: apps/wine-i386-debian.AppImage
-          # The name of the asset you want to upload
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: apps/wine-i386-debian.AppImage
           asset_name: wine-i386-debian.AppImage
-          # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
-          asset_content_type: application/zip
+          tag: ${{ github.ref }}
+          overwrite: true
