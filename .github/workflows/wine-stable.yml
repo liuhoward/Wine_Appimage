@@ -2,11 +2,12 @@ name: CI
 
 # Run this workflow every time a new commit pushed to your repository
 on: 
-  push:
+  release:
     branches:
       - master
     tags:
       - "release*"
+      - "continuous*"
 
 jobs:
   build:
