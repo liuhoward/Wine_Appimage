@@ -20,8 +20,7 @@ jobs:
       - run: docker build . -f deploydocker/Dockerfile.winedeploy.debian -t wine-appimage.debian
       
       - run: mkdir apps
-      - run: echo $(pwd)
-      - run: docker run -v $(pwd)/apps:/tmp/apps -ti wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps
+      - run: docker run --rm -v $(pwd)/apps:/tmp/apps wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps
       - run: wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       - run: bash upload.sh apps/*
         env:
