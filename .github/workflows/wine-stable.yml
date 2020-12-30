@@ -28,3 +28,4 @@ jobs:
           file: apps/*
           tag: ${{ github.ref }}
           overwrite: true
+          file_glob: true
