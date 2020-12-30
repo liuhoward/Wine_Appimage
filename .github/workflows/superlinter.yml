@@ -1,0 +1,28 @@
+name: CI
+
+# Run this workflow every time a new commit pushed to your repository
+on: 
+  push:
+    branches:
+      - master
+    tags:
+      - "release*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O appimagetool.AppImage
+
+      - run: docker build . -f deploydocker/Dockerfile.winedeploy.debian -t wine-appimage.debian
+      
+      - run: mkdir apps
+      - run: docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps
+      - run: wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+      - run: bash upload.sh apps/*
+        env:
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
