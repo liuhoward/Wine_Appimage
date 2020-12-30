@@ -28,3 +28,10 @@ jobs:
           asset_name: wine-i386-debian.AppImage
           tag: ${{ github.ref }}
           overwrite: true
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: apps/wine-i386-debian.tar.gz
+          asset_name: wine-i386-debian.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true

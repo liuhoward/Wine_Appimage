@@ -22,7 +22,8 @@ gcc -std=c99 -m32 -static src/preloaderhook.c -o src/wine-preloader_hook
 strip src/libhookexecv.so src/wine-preloader_hook
 chmod +x src/wine-preloader_hook
 
-wineworkdir=(wineversion/*)
+mv wineversion winestable
+wineworkdir=(winestable/*)
 cd $wineworkdir
 
 pkgcachedir='/tmp/.winedeploycache'
@@ -65,3 +66,5 @@ sed -i -E 's,(^.+"library_path": ")/.*/,\1,' $wineworkdir/usr/share/vulkan/icd.d
 ./appimagetool.AppImage --appimage-extract
 
 export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir wine-i386-debian.AppImage
+
+tar -czf wine-i386-debian.tar.gz $wineworkdir
