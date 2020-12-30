@@ -13,14 +13,13 @@ before_install:
 script:
 
   # debian buster
-  - docker build . -f deploydocker/Dockerfile.wine-stable-deploy.buster -t wine-stable-appimage.buster
+  - docker build . -f deploydocker/Dockerfile.winedeploy.debian -t wine-appimage.debian
 
 after_success:
   - mkdir apps
 
   # debian buster
-  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage /tmp/apps
-#  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-stable-appimage.buster cp wine-stable-i386_x86_64-buster.AppImage.zsync /tmp/apps
+  - docker run --rm -v $(pwd)/apps:/tmp/apps -ti wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps
 
   # uploadtool
   - ls -lh apps/* # Assuming you have some files in out/ that you would like to upload
@@ -32,8 +31,3 @@ branches:
     - # Do not build tags that we create when we upload to GitHub Releases
     - /^(?i:continuous.*)$/
     - /^release[0-9a-z\-]*/
-
-notifications:
-  email:
-    on_success: never # default: change
-    on_failure: always # default: always
