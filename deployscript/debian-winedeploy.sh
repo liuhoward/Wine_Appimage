@@ -64,4 +64,4 @@ sed -i -E 's,(^.+"library_path": ")/.*/,\1,' $wineworkdir/usr/share/vulkan/icd.d
 
 ./appimagetool.AppImage --appimage-extract
 
-export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir -u 'gh-releases-zsync|Wine_Appimage|continuous' wine-i386-debian.AppImage
+export ARCH=x86_64; squashfs-root/AppRun -v $wineworkdir wine-i386-debian.AppImage
