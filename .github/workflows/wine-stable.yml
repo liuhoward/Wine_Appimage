@@ -17,7 +17,8 @@ jobs:
       - run: docker build . -f deploydocker/Dockerfile.winedeploy.debian -t wine-appimage.debian
       
       - run: mkdir apps
-      - run: docker run -v $(pwd)/apps:/tmp/apps wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps
+      - run: docker run -v $(pwd)/apps:/tmp/apps wine-appimage.debian cp wine-i386-debian.AppImage /tmp/apps/
+      - run: docker run -v $(pwd)/apps:/tmp/apps wine-appimage.debian cp wine-i386-debian.tar.gz /tmp/apps/
       - run: ls -lh apps/*
 
       - name: Upload binaries to release
