@@ -5,7 +5,7 @@ apt update
 apt install -y aptitude wget file bzip2 gcc-multilib
 
 # Get Wine
-WINE_VERSION=5.0.3
+WINE_VERSION=5.0.4
 wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/bullseye/main/binary-i386/wine-stable_${WINE_VERSION}~bullseye_i386.deb
 wget -nv -c https://dl.winehq.org/wine-builds/debian/dists/bullseye/main/binary-i386/wine-stable-i386_${WINE_VERSION}~bullseye_i386.deb
 
